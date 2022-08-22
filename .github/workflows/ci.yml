@@ -7,6 +7,9 @@ on:
   push:
     branches: [main]
 
+env:
+  PNPM_CACHE_FOLDER: .pnpm-store
+
 # jobs 表示要执行的一项或者多项任务
 jobs:
   # 任务名，可自定义
@@ -16,13 +19,27 @@ jobs:
     # steps表示执行步骤
     steps:
       # 检出代码，这里用了 actions/checkout@master 库来完成
-      - name: Checkout
-        uses: actions/checkout@master
+      - name: checkout code repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: setup node.js
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: 16
+
+      - name: install and audit
+        uses: ./.github/actions/pnpm
+        with:
+          cache: ${{ env.PNPM_CACHE_FOLDER }}
+
       # 这里展示了如何执行多条命令
       - name: Install and Build
         run: |
           pnpm install
           pnpm run build
+
       # 这里引用了别人写好的发布库，具体参数信息可以查阅上面的链接
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.0.0
