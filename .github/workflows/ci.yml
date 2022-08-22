@@ -12,9 +12,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  buildDeloy:
-    timeout-minutes: 20
-    runs-on: ${{ matrix.os }}
+  build:
+    name: 'Build: node-${{ matrix.nv }}, ${{ matrix.os }}'
+
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -27,8 +27,8 @@ jobs:
         #   node_version: 16
       fail-fast: false
 
-    name: 'Build: node-${{ matrix.nv }}, ${{ matrix.os }}'
-
+    timeout-minutes: 20
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
