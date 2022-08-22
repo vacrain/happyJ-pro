@@ -18,46 +18,41 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node_version: [16]
-        include:
-          # Active LTS + other OS
-          # - os: macos-latest
-          #   node_version: 16
-          # - os: windows-latest
-          #   node_version: 16
+        nv: [16] # node version
+        # include:
+        # Active LTS + other OS
+        # - os: macos-latest
+        #   node_version: 16
+        # - os: windows-latest
+        #   node_version: 16
       fail-fast: false
 
-    name: 'Build: node-${{ matrix.node_version }}, ${{ matrix.os }}'
+    name: 'Build: node-${{ matrix.nv }}, ${{ matrix.os }}'
+
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          # “最近更新时间” 等 git 日志相关信息，需要拉取全部提交记录
-          fetch-depth: 0
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.2
         with:
           version: 7.1.7
 
-      - name: Install deps
-        run: pnpm install
-
-      - name: Set node version to ${{ matrix.node_version }}
+      - name: Set node version to ${{ matrix.nv }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node_version }}
+          node-version: ${{ matrix.nv }}
           cache: 'pnpm'
 
-      - name: Build
+      - name: Install & Build
+        run: pnpm install
         run: pnpm run build
-
-      - name: Deploy to GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v2
-        with:
-          target_branch: gh-pages
-          build_dir: ./dist
+          
+    - name: Deploy to gh-pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        publish_dir: ./build
 
   # deploy:
   #   name: Deploy
