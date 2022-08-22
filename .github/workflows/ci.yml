@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  buildDeloy:
     timeout-minutes: 20
     runs-on: ${{ matrix.os }}
     strategy:
@@ -21,8 +21,8 @@ jobs:
         node_version: [16]
         include:
           # Active LTS + other OS
-          - os: macos-latest
-            node_version: 16
+          # - os: macos-latest
+          #   node_version: 16
           # - os: windows-latest
           #   node_version: 16
       fail-fast: false
@@ -32,6 +32,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          # “最近更新时间” 等 git 日志相关信息，需要拉取全部提交记录
+          fetch-depth: 0
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.2
@@ -47,86 +50,29 @@ jobs:
           node-version: ${{ matrix.node_version }}
           cache: 'pnpm'
 
-      - name: Install deps
-        run: pnpm install
-
       - name: Build
         run: pnpm run build
 
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
-
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: production-files
-          path: ./dist
-
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: crazy-max/ghaction-github-pages@v2
         with:
-          publish_dir: ./dist
-      # - name: Set node version to ${{ matrix.node_version }}
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: ${{ matrix.node_version }}
-      #     cache: 'pnpm'
+          target_branch: gh-pages
+          build_dir: ./dist
 
-      # - name: Install Playwright
-      #   run: npx playwright install --with-deps
-
-      # - name: Build
-      #   run: pnpm run build
-
-      # - name: Test unit
-      #   run: pnpm run test-unit
-
-      # - name: Test e2e
-      #   run: pnpm run test-e2e
-
-      # - name: Nodejs
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: '16.x'
-
-      # - name: Install pnpm
-      #   uses: pnpm/action-setup@v2.2.2
-      #   with:
-      #     version: 7.1.7
-
-  #     - uses: pnpm/action-setup@v2.0.1
-  #       name: Install pnpm
-  #       id: pnpm-install
-  #       with:
-  #         version: 7
-  #         run_install: true
-
-  #     - name: Build
-  #       run: pnpm run build
-
-  # publish:
-  #   needs: [build]
+  # deploy:
+  #   name: Deploy
+  #   needs: build
   #   runs-on: ubuntu-latest
-  #   if: contains(github.ref, 'tags')
+  #   if: github.ref == 'refs/heads/master'
+
   #   steps:
-  #     - uses: actions/checkout@v3
-
-  #     - name: Use Node.js
-  #       uses: actions/setup-node@v3
+  #     - name: Download artifact
+  #       uses: actions/download-artifact@v2
   #       with:
-  #         node-version: "16.x"
-  #         registry-url: https://registry.npmjs.org
+  #         name: production-files
+  #         path: ./dist
 
-  #     - name: Install pnpm
-  #       uses: pnpm/action-setup@v2.0.1
-  #       id: pnpm-install
+  #     - name: Deploy to GitHub Pages
+  #       uses: peaceiris/actions-gh-pages@v3
   #       with:
-  #         version: 7
-  #         run_install: true
-
-  #     - name: Build packages and sites
-  #       run: pnpm run build
+  #         publish_dir: ./dist
