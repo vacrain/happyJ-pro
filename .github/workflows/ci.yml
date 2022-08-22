@@ -18,7 +18,8 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        nv: [16] # node version
+        # node version
+        nv: [16]
         # include:
         # Active LTS + other OS
         # - os: macos-latest
