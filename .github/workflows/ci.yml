@@ -12,8 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: 'Build: node-${{ matrix.nv }}, ${{ matrix.os }}'
+  job-build:
 
     strategy:
       matrix:
@@ -29,6 +28,7 @@ jobs:
 
     timeout-minutes: 20
     runs-on: ${{ matrix.os }}
+    name: 'Build: node-${{ matrix.nv }}, ${{ matrix.os }}'
 
     steps:
       - name: Checkout
