@@ -16,27 +16,13 @@ jobs:
     runs-on: ubuntu-latest
     # steps表示执行步骤
     steps:
-      # 检出代码，这里用了 actions/checkout@master 库来完成
-      - name: checkout code repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@master
 
-      - name: setup node.js
-        uses: actions/setup-node@v2-beta
-        with:
-          node-version: 16
-
-      # 这里展示了如何执行多条命令
-      - name: Install and Build
-        run: |
-          npm i -g pnpm
-          pnpm install
-          pnpm run build
-
-      # 这里引用了别人写好的发布库，具体参数信息可以查阅上面的链接
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@4.0.0
-        with:
-          branch: gh-pages
-          folder: dist
+      - name: Build and Deploy
+        uses: JamesIves/github-pages-deploy-action@master
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: dist
+          BUILD_SCRIPT: npm i -g pnpm && npm install && npm run build
