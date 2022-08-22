@@ -14,6 +14,7 @@ on:
 jobs:
   job-build:
     timeout-minutes: 20
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -26,7 +27,6 @@ jobs:
         #   node_version: 16
       fail-fast: false
 
-    runs-on: ${{ matrix.os }}
     name: 'Build: node-${{ matrix.nv }}, ${{ matrix.os }}'
 
     steps:
