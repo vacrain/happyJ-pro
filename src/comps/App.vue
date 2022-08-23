@@ -2,7 +2,7 @@
   import { computed, onMounted, ref } from 'vue'
   import dayjs from 'dayjs'
 
-  import music from '../assets/audio/cyskdsn.mp3'
+  import music from '@/assets/audio/cyskdsn.mp3'
 
   console.log('setup start------------------------------------------------')
 
