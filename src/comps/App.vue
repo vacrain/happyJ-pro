@@ -2,11 +2,11 @@
   import { computed, onMounted, ref } from 'vue'
   import dayjs from 'dayjs'
 
-  import music from '@/assets/audio/cyskdsn.mp3'
+  import music from '../assets/audio/cyskdsn.mp3'
 
   console.log('setup start------------------------------------------------')
 
-  const autotypeRef = ref<HTMLElement | null>(null)
+  const autotypeRef = ref<HTMLElement>()
   const autotypeShow = false
 
   const dateMemory = dayjs('2018-7-5 3:1') // 我们的纪念日
@@ -30,6 +30,8 @@
 
   console.log('setup end------------------------------------------------')
 
+  const audio = ref<HTMLAudioElement>()
+
   onMounted(() => {
     printMsg()
 
@@ -37,6 +39,8 @@
     setInterval(() => {
       now = dayjs()
     }, 1000)
+
+    setTimeout(() => audio.value?.play(), 100)
   })
 </script>
 
@@ -84,7 +88,7 @@
         <p>2019年12月20日</p>
       </div>
     </div>
-    <audio id="audio" src="music"></audio>
+    <audio ref="audio" :src="music"></audio>
   </div>
 </template>
 
