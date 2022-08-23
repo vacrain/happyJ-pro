@@ -7,7 +7,7 @@
   console.log('setup start------------------------------------------------')
 
   const autotypeRef = ref<HTMLElement>()
-  const autotypeShow = false
+  const autotypeShow = true
 
   const dateMemory = dayjs('2018-7-5 3:1') // 我们的纪念日
   let now = dayjs()
