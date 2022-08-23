@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.1
@@ -36,46 +36,3 @@ jobs:
         with:
           branch: gh-pages
           folder: dist
-  # build-and-deploy:
-  #   strategy:
-  #     matrix:
-  #       os: ubuntu-latest
-  #       nv: 16 # node version
-  #       # include:
-  #       # Active LTS + other OS
-  #       # - os: macos-latest
-  #       #   node_version: 16
-  #       # - os: windows-latest
-  #       #   node_version: 16
-  #     fail-fast: false
-  #   timeout-minutes: 5
-  #   runs-on: ${{ matrix.os }}
-
-  #   name: 'Build: node-${{ matrix.nv }}, ${{ matrix.os }}'
-
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-
-  #   - name: Deploy to gh-pages
-  #     uses: peaceiris/actions-gh-pages@v3
-  #     with:
-  #       publish_dir: ./build
-
-  # deploy:
-  #   name: Deploy
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   if: github.ref == 'refs/heads/master'
-
-  #   steps:
-  #     - name: Download artifact
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: production-files
-  #         path: ./dist
-
-  #     - name: Deploy to GitHub Pages
-  #       uses: peaceiris/actions-gh-pages@v3
-  #       with:
-  #         publish_dir: ./dist
