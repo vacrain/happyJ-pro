@@ -12,14 +12,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  job-build:
-    timeout-minutes: 20
-    runs-on: ${{ matrix.os }}
+  build-and-deploy:
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        # node version
-        nv: [16]
+        os: ubuntu-latest
+        nv: 16 # node version
         # include:
         # Active LTS + other OS
         # - os: macos-latest
@@ -27,6 +24,8 @@ jobs:
         # - os: windows-latest
         #   node_version: 16
       fail-fast: false
+    timeout-minutes: 5
+    runs-on: ${{ matrix.os }}
 
     name: 'Build: node-${{ matrix.nv }}, ${{ matrix.os }}'
 
@@ -42,7 +41,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.2
+        uses: pnpm/action-setup@v2
         with:
           version: 7.1.7
 
