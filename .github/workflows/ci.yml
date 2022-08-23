@@ -13,30 +13,15 @@ on:
 
 jobs:
   build-and-deploy:
-    strategy:
-      matrix:
-        os: ubuntu-latest
-        nv: 16 # node version
-        # include:
-        # Active LTS + other OS
-        # - os: macos-latest
-        #   node_version: 16
-        # - os: windows-latest
-        #   node_version: 16
-      fail-fast: false
-    timeout-minutes: 5
-    runs-on: ${{ matrix.os }}
-
-    name: 'Build: node-${{ matrix.nv }}, ${{ matrix.os }}'
-
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@master
 
-      - name: Set node version to ${{ matrix.nv }}
+      - name: Set Nodejs
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.nv }}
+          node-version: 16
           registry-url: https://registry.npmjs.org
           cache: 'pnpm'
 
@@ -45,14 +30,40 @@ jobs:
         with:
           version: 7.1.7
 
-      - name: Install & Build
-        run: pnpm install
+      - name: Build
         run: pnpm run build
-          
-    - name: Deploy to gh-pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        publish_dir: ./build
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.0.0
+        with:
+          branch: gh-pages
+          folder: dist
+
+  # build-and-deploy:
+  #   strategy:
+  #     matrix:
+  #       os: ubuntu-latest
+  #       nv: 16 # node version
+  #       # include:
+  #       # Active LTS + other OS
+  #       # - os: macos-latest
+  #       #   node_version: 16
+  #       # - os: windows-latest
+  #       #   node_version: 16
+  #     fail-fast: false
+  #   timeout-minutes: 5
+  #   runs-on: ${{ matrix.os }}
+
+  #   name: 'Build: node-${{ matrix.nv }}, ${{ matrix.os }}'
+
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+
+  #   - name: Deploy to gh-pages
+  #     uses: peaceiris/actions-gh-pages@v3
+  #     with:
+  #       publish_dir: ./build
 
   # deploy:
   #   name: Deploy
