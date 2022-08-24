@@ -15,7 +15,7 @@ export default defineConfig({
   ],
 
   // base: "./", // 默认打包后 index.html 中是 /assets, 设置本项后变成 ./assets
-  base: 'production' === process.env.NODE_ENV ? './' : `/happyJ-pro/`,
+  base: 'production' === process.env.NODE_ENV ? '/' : `./`,
   // base: import.meta.env == 'product' ? '/' : './',
 
   server: {
