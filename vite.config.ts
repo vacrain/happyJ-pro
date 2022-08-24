@@ -29,7 +29,10 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src')
+      '@':
+        'production' === process.env.NODE_ENV
+          ? '/happyJ-pro/src'
+          : resolve(__dirname, './src')
     }
   },
 
