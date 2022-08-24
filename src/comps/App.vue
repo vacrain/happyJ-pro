@@ -1,12 +1,12 @@
 <script setup lang="ts">
-  import { computed, onMounted, ref } from 'vue'
+  import { computed, onMounted } from 'vue'
   import dayjs from 'dayjs'
 
   import music from '@/assets/cyskdsn.mp3'
 
   console.log('setup start------------------------------------------------')
 
-  const autotypeRef = ref<HTMLElement>()
+  const autotypeRef = $ref<HTMLElement>()
   const autotypeShow = true
 
   const dateMemory = dayjs('2018-7-5 3:1') // 我们的纪念日
@@ -23,14 +23,14 @@
   })
 
   const printMsg = () => {
-    const msg = autotypeRef.value?.innerHTML.replace(/(\s){2,}/g, '$1')
+    const msg = autotypeRef?.innerHTML.replace(/(\s){2,}/g, '$1')
 
     let i = 0
   }
 
   console.log('setup end------------------------------------------------')
 
-  const audio = ref<HTMLAudioElement>()
+  const audio = $ref<HTMLAudioElement>()
 
   onMounted(() => {
     printMsg()
@@ -40,7 +40,7 @@
       now = dayjs()
     }, 1000)
 
-    setTimeout(() => audio.value?.play(), 100)
+    // setTimeout(() => audio.value?.play(), 100)
   })
 </script>
 

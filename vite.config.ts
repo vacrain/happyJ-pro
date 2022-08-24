@@ -8,7 +8,9 @@ import { presetUno, presetAttributify, presetIcons } from 'unocss'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      reactivityTransform: true
+    }),
     Unocss({
       presets: [presetUno(), presetAttributify(), presetIcons()]
     })
