@@ -1,14 +1,9 @@
 name: CI
 
-# 触发 workflow 的条件
 on:
   push:
     branches:
       - master
-    # tags:
-    #   - "v*"
-  pull_request:
-  workflow_dispatch:
 
 jobs:
   build:
@@ -34,12 +29,6 @@ jobs:
 
       - name: Build
         run: pnpm run build
-
-      # - name: Deploy to Current Repo
-      #   uses: JamesIves/github-pages-deploy-action@4.0.0
-      #   with:
-      #     branch: gh-pages
-      #     folder: dist
 
       - name: Deploy to Public Repo
         uses: JamesIves/github-pages-deploy-action@v4
