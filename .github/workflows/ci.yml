@@ -47,9 +47,10 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
+          git-config-name: vacrain
+          git-config-email: 726866011@qq.com
           repository-name: vacrain/hj
-          branch: main
+          branch: gh-pages
           clean: true
           folder: dist
-          single-commit: true
           commit-message: 'Deploy GitHub Pages~'
