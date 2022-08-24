@@ -46,7 +46,7 @@ jobs:
       - name: Deploy to Public Repo
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}
+          ssh-key: ${{ secrets.DEPLOY_KEY_PRIVATE }}
           git-config-name: vacrain
           git-config-email: 726866011@qq.com
           repository-name: vacrain/hj
