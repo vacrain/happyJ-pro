@@ -94,7 +94,7 @@ var scope = {
   var canvas = scope.ctx.canvas
 
   canvas.width = window.innerWidth
-  canvas.height = window.innerHeight
+  canvas.height = window.innerHeight - 10
   document.body.appendChild(canvas)
 
   var particleCount = 50

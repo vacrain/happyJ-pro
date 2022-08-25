@@ -1,54 +1,86 @@
 <script setup lang="ts">
-  import { computed, onMounted } from 'vue'
+  import { onMounted } from 'vue'
   import dayjs from 'dayjs'
-
   import music from '@/assets/cyskdsn.mp3'
 
-  console.log('setup start------------------------------------------------')
+  // custom
+  const dateMemory = dayjs('2018-7-5 3:1') // 我们的纪念日
 
+  // do not change
+  const audio = $ref<HTMLAudioElement>()
   const autotypeRef = $ref<HTMLElement>()
   const autotypeShow = true
-
-  const dateMemory = dayjs('2018-7-5 3:1') // 我们的纪念日
-  let now = dayjs()
-
-  const dueDate = computed(now => {
-    const dueMillisecond = now.diff(dateMemory)
-    return {
-      days: Math.floor(dueMillisecond / (24 * 3600 * 1000)),
-      hours: Math.floor((dueMillisecond / (3600 * 1000)) % 24),
-      minutes: Math.floor((dueMillisecond / (1000 * 60)) % 60),
-      second: Math.floor((dueMillisecond / 1000) % 60)
-    }
-  })
+  let dueDate = $ref('')
 
   const printMsg = () => {
     const msg = autotypeRef?.innerHTML.replace(/(\s){2,}/g, '$1')
+    autotypeRef.innerHTML = ''
 
-    let i = 0
+    let idx = 0
+    const timer = () => {
+      let current = msg.slice(idx, idx + 1)
+
+      if (current == '<') {
+        idx = msg.indexOf('>', idx) + 1
+      } else {
+        idx++
+      }
+      //位运算符: 根据setInterval运行奇偶次来判断是否加入下划线字符“_”，使输入效果更逼真
+      if (idx < msg.length - 1) {
+        //打印字符倒数第2个字符开始，不加下划线字符，以防止结束符可能会多输出一下划线字符
+        autotypeRef.innerHTML = msg.substring(0, idx) + (idx & 1 ? '_' : '')
+      } else {
+        autotypeRef.innerHTML = msg.substring(0, idx)
+        // clearTimeout(timer)
+      }
+
+      setTimeout(timer, 200)
+    }
+    setTimeout(timer, 1000)
   }
 
-  console.log('setup end------------------------------------------------')
-
-  const audio = $ref<HTMLAudioElement>()
+  const computeDueDate = () => {
+    const now = dayjs()
+    const dueMillisecond = now.diff(dateMemory)
+    const days = Math.floor(dueMillisecond / (24 * 3600 * 1000))
+    const hours = Math.floor((dueMillisecond / (3600 * 1000)) % 24)
+    const minutes = Math.floor((dueMillisecond / (1000 * 60)) % 60)
+    const seconds = Math.floor((dueMillisecond / 1000) % 60)
+    dueDate = `我们已经在一起了: ${days} 天 ${hours} 小时 ${minutes} 分 ${seconds} 秒`
+  }
 
   onMounted(() => {
     printMsg()
 
     // 每秒获取一次当前时间
     setInterval(() => {
-      now = dayjs()
+      computeDueDate()
     }, 1000)
 
-    // setTimeout(() => audio.value?.play(), 100)
+    // 播放 bgm
+    setTimeout(() => audio?.play(), 8500)
   })
 </script>
 
 <template>
-  <div className="App animated bounceInLeft">
-    <div className="date">{date()}</div>
+  <div
+    class="msg animated bounceInLeft"
+    p-5
+    pt-3
+    pb-9
+    font-900
+    w-75
+    h-215
+    top-5
+    left-5
+    text-3
+    mb-1
+    md="w-220 h-160 top-15 left-70 text-4"
+  >
+    <div class="date">{{ dueDate }}</div>
+
     <div v-show="autotypeShow" ref="autotypeRef">
-      <h1 font-900>Yo～小寿星！！</h1>
+      <h2 font-900>Yo～小寿星！！</h2>
       <p>生日快乐歌唱过了，来一首别的音乐，1,2,3,Music~</p>
       <p>当当！今天是我们宇宙超级无敌小可爱的生日啦～</p>
       <p>
@@ -84,7 +116,7 @@
       <p></p>
       <p>最后祝小扯生日快乐！！</p>
       <div text-right>
-        <p>爱你的老公♥</p>
+        <p>爱你的老公 ♥</p>
         <p>2019年12月20日</p>
       </div>
     </div>

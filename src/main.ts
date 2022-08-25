@@ -1,7 +1,8 @@
 import { createApp } from 'vue'
-import './assets/style.css'
-import App from './comps/App.vue'
+import Provider from '@/comps/provider/provider.vue'
 
 import 'uno.css'
+import 'animate.css'
+import '@/assets/style.css'
 
-createApp(App).mount('#app')
+createApp(Provider).mount('#app')

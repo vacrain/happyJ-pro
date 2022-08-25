@@ -6,13 +6,13 @@
   "homepage": "https://vacrain.github.io/happyj-pro",
   "scripts": {
     "dev": "vite --open",
-    "build:local": "vue-tsc --noEmit && vite build --mode localbuild",
-    "preview": "vite preview",
+    "local-build-preview": "vue-tsc --noEmit && vite build --mode localbuild && vite preview",
     "build": "vue-tsc --noEmit && vite build"
   },
   "dependencies": {
     "dayjs": "^1.11.5",
-    "vue": "^3.2.37"
+    "vue": "^3.2.37",
+    "animate.css": "^3.6.1"
   },
   "devDependencies": {
     "@iconify-json/ic": "^1.1.9",
