@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://vacrain.github.io/happyj-pro",
+  "homepage": "https://vacrain.github.io/hj",
   "scripts": {
     "dev": "vite --open",
     "local-build-preview": "vue-tsc --noEmit && vite build --mode localbuild && vite preview",

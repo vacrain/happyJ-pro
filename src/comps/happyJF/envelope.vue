@@ -8,8 +8,8 @@
   }>()
 
   const showMsg = () => {
-    envelopeAnimation = 'bounceOutRight'
-    emit('openEnvelope', true)
+    envelopeAnimation = 'bounceOutDown'
+    setTimeout(() => emit('openEnvelope', true), 500)
   }
 </script>
 <template>
@@ -33,6 +33,6 @@
       z-999
       @click="showMsg"
     />
-    <div class="text">There's a envelope for U !</div>
+    <div class="text">There's a letter for U !</div>
   </div>
 </template>

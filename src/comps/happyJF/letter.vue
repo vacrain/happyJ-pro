@@ -64,7 +64,7 @@
 
 <template>
   <div
-    class="msg animated bounceInLeft"
+    class="msg animated bounceInDown"
     p-5
     pt-3
     pb-9

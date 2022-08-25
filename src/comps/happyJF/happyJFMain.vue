@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import Envelope from './envelope.vue'
-  import Msg from './msg.vue'
+  import Letter from './letter.vue'
 
   let msgShowFlag = $ref(false)
 
@@ -10,5 +10,5 @@
 </script>
 <template>
   <Envelope @openEnvelope="showMsg" />
-  <Msg v-if="msgShowFlag" />
+  <Letter v-if="msgShowFlag" />
 </template>
