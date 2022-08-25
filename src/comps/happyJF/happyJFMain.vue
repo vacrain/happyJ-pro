@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import Envelope from './Envelope.vue'
+  import Envelope from './envelope.vue'
   import Msg from './msg.vue'
 
   let msgShowFlag = $ref(false)
