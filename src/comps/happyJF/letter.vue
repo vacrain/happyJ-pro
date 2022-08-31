@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { onMounted } from 'vue'
   import dayjs from 'dayjs'
-  import music from '@/assets/cyskdsn.mp3'
+  // import music from '@/assets/cyskdsn.mp3'
 
   // custom
   const dateMemory = dayjs('2018-7-5 3:1') // 我们的纪念日
@@ -120,7 +120,10 @@
         <p>2019年12月20日</p>
       </div>
     </div>
-    <audio ref="audio" :src="music"></audio>
+    <audio
+      ref="audio"
+      src="https://cdn.jsdelivr.net/gh/vacrain/static/audio/cyskdsn.mp3"
+    ></audio>
   </div>
 </template>
 

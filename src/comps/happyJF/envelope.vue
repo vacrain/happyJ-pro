@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import heart from '@/assets/heart.png'
+  // import heart from '@/assets/heart.png'
 
   let envelopeAnimation = $ref('bounceInLeft')
 
@@ -25,7 +25,7 @@
   >
     <img
       class="heart"
-      :src="heart"
+      src="https://cdn.jsdelivr.net/gh/vacrain/static/img/heart.png"
       w-10
       h-10
       mt-20

@@ -61,7 +61,9 @@ body {
 }
 
 .envelope {
-  background: url('@/assets/envelope.png') no-repeat;
+  /* background: url('@/assets/envelope.png') no-repeat; */
+  background: url('https://cdn.jsdelivr.net/gh/vacrain/static/img/envelope.png')
+    no-repeat;
   background-size: cover;
 
   border-radius: 10px;
